@@ -11,3 +11,7 @@
 /log/*
 !/log/.keep
 /tmp
+
+
+# For ignoring keys and seed phonenumbers, etc.
+/config/secrets.yml
