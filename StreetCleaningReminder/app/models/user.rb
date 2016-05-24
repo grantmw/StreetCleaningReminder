@@ -2,6 +2,8 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
 
+	has_many :reminders
+
 
 	include BCrypt
 

@@ -8,3 +8,5 @@
 
 
 User.create(first_name: 'Grant', phone_number: APP_CONFIG['my_phone_number'], password: '111111')
+
+Reminder.create(time: Time.zone.local(2016, 05, 24, 13, 40))
