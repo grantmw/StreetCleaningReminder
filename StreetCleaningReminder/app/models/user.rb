@@ -2,11 +2,8 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
 
+	has_many :reminders
 
-	#has_many :saved_tests
-
-	#validates :email, presence: true, uniqueness: true
-	#validates :hash_password, presence: true
 
 	include BCrypt
 
@@ -18,5 +15,7 @@ class User < ActiveRecord::Base
 		@password = Password.create(new_password)
 		self.hash_password = @password
 	end
+
+	#trigger a message at a certain time, using attributes of User object
 
 end

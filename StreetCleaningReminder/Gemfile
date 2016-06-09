@@ -12,6 +12,11 @@ gem 'json'
 gem "heroku"
 gem 'bcrypt'
 
+gem 'twilio-ruby'
+
+gem 'delayed_job_active_record'
+gem 'daemons'
+
 
 gem 'rails_12factor', group: :production
 
