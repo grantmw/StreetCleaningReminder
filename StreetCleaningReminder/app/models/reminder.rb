@@ -6,6 +6,11 @@ class Reminder < ActiveRecord::Base
 	# @client = Twilio::REST::Client.new(account_sid, auth_token)
 
 
+	validates :user_id, presence: true
+	validates :time, presence: true
+	validates :day, presence: true
+	validates :frequency, presence: true
+
 	def send_message
 		# Rails.logger.debug(@client)
 		p "ran send_message"

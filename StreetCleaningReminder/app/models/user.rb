@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
 
 	has_many :reminders
 
+	validates :first_name, presence: true
+	validates :phone_number, presence: true, uniqueness: true
+	validates :hash_password, presence: true
 
 	include BCrypt
 
