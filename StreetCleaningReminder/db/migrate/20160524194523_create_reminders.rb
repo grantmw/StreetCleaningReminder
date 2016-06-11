@@ -3,7 +3,7 @@ class CreateReminders < ActiveRecord::Migration
     create_table :reminders do |t|
 
     	t.integer :user_id
-		t.time :time
+		t.datetime :time
 		t.string :day
 		t.string :frequency 
 
