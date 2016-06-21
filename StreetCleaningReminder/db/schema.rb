@@ -34,7 +34,8 @@ ActiveRecord::Schema.define(version: 20160601164821) do
 
   create_table "reminders", force: :cascade do |t|
     t.integer  "user_id"
-    t.time     "time"
+    t.integer  "hour"
+    t.integer  "minute"
     t.string   "day"
     t.string   "frequency"
     t.datetime "created_at", null: false
