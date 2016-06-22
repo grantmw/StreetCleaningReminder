@@ -4,7 +4,7 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 	$scope.reminders = JSON.parse($cookies.get('reminders'))
 	
 
-	$scope.time = ''
+	$scope.hourAndDuration = ''
 	$scope.day = ''
 	$scope.frequency = ''
 
@@ -14,7 +14,7 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 	$scope.update_reminder = function(){
 		var reminder_attr = {
-			"time": $scope.time,
+			"hourAndDuration": $scope.hourAndDuration,
 			"day": $scope.day,
 			"frequency": $scope.frequency 
 		}

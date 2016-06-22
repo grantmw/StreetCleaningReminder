@@ -14,7 +14,7 @@ class RemindersController < ApplicationController
 		p params
 		p "8" * 10
 
-		Reminder.create(user_id: 1, hour: params[:time][0..1].to_i, minute: params[:time][-2..-1].to_i, day: params[:day], frequency: params[:frequency])
+		Reminder.create(user_id: 1, hour: params[:hourAndDuration][0..1].to_i, duration: params[:hourAndDuration][-2..-1].to_i, day: params[:day], frequency: params[:frequency])
 		# reminder = Reminder.create()
 		# reminder.send_message
 		# p Time.now

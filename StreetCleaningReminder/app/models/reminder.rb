@@ -10,7 +10,7 @@ class Reminder < ActiveRecord::Base
 
 	validates :user_id, presence: true
 	validates :hour, presence: true
-	validates :minute, presence: true
+	validates :duration, presence: true
 	validates :day, presence: true
 	validates :frequency, presence: true
 
@@ -48,14 +48,18 @@ class Reminder < ActiveRecord::Base
 		# p "poop"
 		# p self.hour
 		# p self.frequency
-		p "it ran" * 10
+		
 		next_minute = Time.now.min + 1
-		time = DateTime.new(2016,6,19,00, next_minute,30,'-7')
-		p time
-		self.delay(run_at: time).send_message
+		time_object = Reminder.create_runtime(self.hour, self.day, self.frequency)
+		datetime_object = DateTime.parse(time_object.to_s)
+		# DateTime.new(2016,6,19,00, next_minute,30,'-7')
+		p "it ran" * 10
+		p datetime_object
+		p "it ran" * 10
+		self.delay(run_at: datetime_object).send_message
 	end
 
-	def create_runtime(hour, day, frequency)
+	def self.create_runtime(hour, day, frequency)
 		run_time = nil
 		month = ""
 		case DateTime.now.month
@@ -102,7 +106,7 @@ class Reminder < ActiveRecord::Base
 				wday = 'saturday'
 		end
 		if frequency == 'weekly'
-			run_time = Chronic.parse("next #{day}")
+			run_time = Chronic.parse("next #{day}") - (12*60*60) + (hour*60*60)
 		elsif frequency == '1st and 3rd' || frequency == '2nd and 4th'
 			#check intervals
 			#before 1st wday of month

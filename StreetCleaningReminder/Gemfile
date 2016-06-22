@@ -16,8 +16,7 @@ gem 'twilio-ruby'
 
 gem 'delayed_job_active_record'
 gem 'daemons'
-gem 'delayed_job_recurring'
-
+gem 'chronic'
 
 gem 'rails_12factor', group: :production
 
