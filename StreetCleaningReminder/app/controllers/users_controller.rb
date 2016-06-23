@@ -2,11 +2,6 @@
 # require 'json'
 
 class UsersController < ApplicationController
-  def index
-  end
-
-  def new
-  end
 
   def create
     user = User.new(first_name: params['email'], password: params['password'], phone_number: params['phone_number'])
@@ -15,9 +10,6 @@ class UsersController < ApplicationController
     else
       render nothing: true, status: 406
     end
-  end
-
-  def show
   end
 
   def edit

@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 		p "8*100"
 		p params
 		p "8*100"
+		p session[:id]
 		if user = User.find_by(phone_number: params["phone_number"])
 			p 'hello'
 			if user.password == params[:password]
