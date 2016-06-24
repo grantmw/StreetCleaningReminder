@@ -3,9 +3,9 @@ var app = angular.module('app', ['ngRoute', 'ngCookies']);
 app.config(function ($routeProvider, $locationProvider){ $routeProvider
 	.when('/',{
 		controller: 'SigninController',
-		templateUrl: '../components/user_new.html'
+		templateUrl: '../components/reminders.html'
 	})
-	.when('/reminders',{
+	.when('/',{
 		controller: 'RemindersController',
 		templateUrl: '../components/reminders.html'
 	})

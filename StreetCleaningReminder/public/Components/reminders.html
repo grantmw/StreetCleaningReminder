@@ -1,7 +1,40 @@
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Sign In</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sign In </h4>
+      </div>
+      <div class="modal-body">
+        <form>
+    	  <label for="phone_number">Phone Number:</label>
+          <input type="text" name="email" ng-model="phone_number">
+          <br>
+          <label for="email">Password:</label>
+          <input type="password" name="password" ng-model="password">
+          <br>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="signin()">Sign In</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+			
+
 <div>
 	<h1>These are your reminders</h1>
 	<div ng-repeat="reminder in reminders">
-		<ul>{{reminder}}</ul>
+		<ul><h5>Day: </h5>{{reminder.day.toUpperCase()}} | <h5>Time: </h5>{{reminder.hour}}:00 (military) | <h5>Monthly Frequency: </h5>{{reminder.frequency}}</ul>
 	</div>
 	<h1>Create your reminder times</h1>
 	<div>
@@ -57,27 +90,3 @@
 	</div>
 </div>
 
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-			

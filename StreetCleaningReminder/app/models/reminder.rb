@@ -56,7 +56,7 @@ class Reminder < ActiveRecord::Base
 		p "it ran" * 10
 		p datetime_object
 		p "it ran" * 10
-		self.delay(run_at: datetime_object).send_message
+		self.delay(run_at: datetime_object, reminder_id: self.id).send_message
 	end
 
 	def self.create_runtime(hour, day, frequency)

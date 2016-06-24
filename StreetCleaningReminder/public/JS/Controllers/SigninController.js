@@ -4,12 +4,13 @@ app.controller('SigninController', ['$scope', '$http', '$cookies', function($sco
 	$scope.password = ""
 
 
-
 	$scope.signin = function(){
 		var user = {
 			"phone_number": $scope.phone_number,
 			"password": $scope.password 
 		}
+		console.log("two controllers works")
+
 
 		$http.post('/sessions', user).success(function(response){
 			console.log(response)
