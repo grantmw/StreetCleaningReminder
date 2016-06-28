@@ -48,13 +48,16 @@ class Reminder < ActiveRecord::Base
 		# p "poop"
 		# p self.hour
 		# p self.frequency
+
 		
 		next_minute = Time.now.min + 1
 		time_object = Reminder.create_runtime(self.hour, self.day, self.frequency)
+		p time_object
 		datetime_object = DateTime.parse(time_object.to_s)
 		# DateTime.new(2016,6,19,00, next_minute,30,'-7')
 		p "it ran" * 10
 		p datetime_object
+
 		p "it ran" * 10
 		self.delay(run_at: datetime_object, reminder_id: self.id).send_message
 	end

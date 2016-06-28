@@ -1,14 +1,51 @@
 app.controller('RemindersController', ['$scope', '$http', '$cookies', function($scope, $http, $cookies){
-
+	// take out all cookies?
 	console.log("in the reminders controller")
-	$scope.reminders = JSON.parse($cookies.get('reminders'))
-	console.log($cookies.get('poop'))
+	// $scope.reminders = JSON.parse($cookies.get('reminders'))
+	$scope.reminders = []
 
-	
-	
-	if ($cookies.get('loggedin') == 'false' || typeof $cookies.get('loggedin') == 'undefined'){
-		$("#myModal").modal("toggle")
+
+	var check_login = function(){	
+		if ($cookies.get('loggedin') == 'false' || typeof $cookies.get('loggedin') == 'undefined'){
+			$("#myModal").modal("toggle")
+		}
+		console.log($cookies.get('loggedin'))
+		console.log("is the person logged in? --> True")
 	}
+	check_login()
+
+	var get_reminders = function(){
+		$http({
+			url: '/reminders',
+			method: 'GET',
+			params: {user_phone_number: $cookies.get('user_phone_number')}
+		}).success(function(response){
+			$scope.reminders = response['reminders']
+			$scope.phone_number = $cookies.get('user_phone_number')
+		})
+		.error(function(response){
+			console.log("Failed to get reminders")
+		})
+
+
+	}
+	get_reminders()
+
+
+	// $scope.getFontSize = function(){
+	// 	$http({
+	// 		url: '/levels',
+	// 		method: 'GET',
+	// 		params: {"screen_width": screen.width}
+	// 	})
+	// 	.success(function(response){
+	// 		$scope.fontSizes = response; //returning array of objects containing vision level and correspondings font-sizes
+	// 		console.log(response)
+	// 		renderLetters()
+	//      	$('#vision-text').css("font-size", $scope.fontSizes[0]["font_size"]+"px"); //Jquery code to update font sizes
+	// 	})
+
+	// }
 
 
 	$scope.hourAndDuration = ''
@@ -20,16 +57,18 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 
 
-	$scope.update_reminder = function(){
+	$scope.create_reminder = function(){
+		console.log("this is the create reminder function: this is scope phone_number")
+		console.log($scope.phone_number)
 		var reminder_attr = {
 			"hourAndDuration": $scope.hourAndDuration,
 			"day": $scope.day,
-			"frequency": $scope.frequency 
+			"frequency": $scope.frequency,
+			"phone_number": $cookies.get('user_phone_number')
 		}
 
 		$http.post('/reminders', reminder_attr).success(function(response){
-
-			
+			get_reminders()
 			// $cookies.put('email', response['user']['email'])
 			// $cookies.putObject('results', response['results']);
 
@@ -48,13 +87,15 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 
 		$http.post('/sessions', user).success(function(response){
-			console.log(response)
-			console.log(response['reminders'])
-			console.log(response['user'])
+			// console.log(response['reminders'])
+			console.log(String(response['user_phone_number']))
 			$cookies.put('loggedin', 'true')
+
 			// shareVariables.setProperty(response[user])
-			$cookies.put('reminders', JSON.stringify(response['reminders']))
-			$cookies.put('user', JSON.stringify(response['user']))
+			$scope.reminders = response['reminders']
+			$scope.phone_number = String(response['user_phone_number'])
+			// $cookies.put('reminders', JSON.stringify(response['reminders']))
+			$cookies.put('user_phone_number', String(response['user_phone_number']))
 			// $cookies.putObject('results', response['results']);
 			window.location = '/#/'
 
@@ -62,6 +103,7 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 		.error(function(response){
 			console.log("Failed")
 			$cookies.put('loggedin', 'false')
+			$cookies.put('user_phone_number', 'not logged in')
 			$("#myModal").modal("toggle")
 		})
 	}

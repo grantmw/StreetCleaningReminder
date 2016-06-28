@@ -1,16 +1,16 @@
 class SessionsController < ApplicationController
 
 	def create
-		p "8*100"
+
+		p "8"*100
 		p params
-		p "8*100"
 		p session[:id]
 		if user = User.find_by(phone_number: params["phone_number"])
-			p 'hello'
+			p 'signed in'
 			if user.password == params[:password]
 				session[:id] = user.id
 				obj = {
-					user: user,
+					user_phone_number: user.phone_number,
 					reminders: user.reminders
 				}
 				render json: obj, status: :created
@@ -21,4 +21,6 @@ class SessionsController < ApplicationController
 			render nothing: true, status: 404	
 		end
 	end
+
+
 end
