@@ -33,7 +33,7 @@
 
 <div>
 	<h1>These are your reminders</h1>
-	<h3>Add up to six street cleaning times, and receive text messages 24 hours</h3>
+	<h3>Add up to six street cleaning times, and receive text message reminders 12 hours before street cleaning starts. Never get a ticket again!</h3>
 	<div ng-repeat="reminder in reminders">
 		<ul><h5>Day: </h5>{{reminder.day.toUpperCase()}} | <h5>Start Time: </h5>{{reminder.hour}}:00 (military) | <h5>Duration: </h5>{{reminder.duration}} hrs |<h5>Monthly Frequency: </h5>{{reminder.frequency}} | <button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button></ul>
 	</div>

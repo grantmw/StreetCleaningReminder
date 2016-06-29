@@ -55,6 +55,7 @@ class RemindersController < ApplicationController
 		#use destroy (with callback functionality) in model - refactor
 		if reminder = Reminder.find(params[:id])
 			reminder.delete
+			Delayed::Job.find_by(reminder_id: reminder.id).delete
 		else
 			render nothing: true, status: 404	
 		end
