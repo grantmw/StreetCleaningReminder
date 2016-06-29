@@ -31,6 +31,22 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 	}
 	get_reminders()
 
+	$scope.delete_reminder = function(id){
+		console.log("this is the id: " + String(id))
+
+		$http({
+			url: "/reminders/" + id,
+			method: 'DELETE',
+		}).success(function(response){
+			console.log("reminder successfully deleted")
+			get_reminders()
+		})
+		.error(function(response){
+			console.log("Failed to delete reminder")
+		})
+
+	}
+
 
 	// $scope.getFontSize = function(){
 	// 	$http({

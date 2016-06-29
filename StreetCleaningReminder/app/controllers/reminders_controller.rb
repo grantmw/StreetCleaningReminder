@@ -1,5 +1,5 @@
 class RemindersController < ApplicationController
-
+	#sessions don't seem to work, or matter, delete
 	def index
 		p "this is the reminders index"*10
 		p session[:id]
@@ -46,5 +46,18 @@ class RemindersController < ApplicationController
 		else
 			render nothing: true, status: 404	
 		end
+	end
+
+	def destroy
+		p "hit the destroy route, params to follow"
+		p params
+
+		#use destroy (with callback functionality) in model - refactor
+		if reminder = Reminder.find(params[:id])
+			reminder.delete
+		else
+			render nothing: true, status: 404	
+		end
+
 	end
 end
