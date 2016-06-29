@@ -100,6 +100,8 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 		})
 		.error(function(response){
+			console.log('this is the response of create_reminders function:')
+			console.log(response)
 			console.log("Failed")
 		})
 	}

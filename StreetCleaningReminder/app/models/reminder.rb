@@ -2,6 +2,9 @@ class Reminder < ActiveRecord::Base
 
 	belongs_to :user
 	after_create :schedule_reminder
+	validate :reminders_within_limit, :on => :create
+
+
 
 	# account_sid = APP_CONFIG['account_sid']
 	# auth_token = APP_CONFIG['auth_token']
@@ -13,6 +16,12 @@ class Reminder < ActiveRecord::Base
 	validates :duration, presence: true
 	validates :day, presence: true
 	validates :frequency, presence: true
+
+	def reminders_within_limit
+		if self.user.reminders.length > 5
+			errors.add(:over_limit, "Sorry - You cannot create more than 6 reminders") 
+		end
+	end
 
 	def send_message
 		# Rails.logger.debug(@client)
