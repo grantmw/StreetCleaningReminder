@@ -15,12 +15,22 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 	check_login()
 
 	var get_reminders = function(){
+		console.log('ran get_reminders function')
 		$http({
 			url: '/reminders',
 			method: 'GET',
 			params: {user_phone_number: $cookies.get('user_phone_number')}
 		}).success(function(response){
+			console.log('get_reminders ran successfully')
 			$scope.reminders = response['reminders']
+			if($scope.reminders.length == 0){
+				$(".show_reminders").hide()
+				$(".no_reminders").show()	
+				console.log("should have hid show reminders div")		
+			} else {
+				$(".show_reminders").show()
+				$(".no_reminders").hide()
+			}
 			$scope.phone_number = $cookies.get('user_phone_number')
 		})
 		.error(function(response){
