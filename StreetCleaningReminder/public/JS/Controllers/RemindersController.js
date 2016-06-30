@@ -7,6 +7,7 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 	$scope.phone_number = ""
 	$scope.password = ""
 	$scope.user_name = ""
+	$scope.reminder_name = ""
 
 
 
@@ -47,7 +48,9 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 
 	}
-	get_reminders()
+	if ($cookies.get('loggedin') == 'true'){
+		get_reminders()
+	}
 
 	$scope.delete_reminder = function(id){
 		console.log("this is the id: " + String(id))
@@ -72,7 +75,8 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 			"hourAndDuration": $scope.hourAndDuration,
 			"day": $scope.day,
 			"frequency": $scope.frequency,
-			"phone_number": $cookies.get('user_phone_number')
+			"phone_number": $cookies.get('user_phone_number'),
+			"reminder_name": $scope.reminder_name
 		}
 
 		$http.post('/reminders', reminder_attr).success(function(response){
@@ -82,12 +86,8 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 		})
 		.error(function(response){
-			console.log('this is the error response of create_reminders function:')
-			console.log(response)
-			if(response[0] == "over limit"){
-				alert("Sorry, you cannot make more than six reminders.")
-			}
-			console.log("Failed")
+			console.log("Failed to create_reminder")
+			alert(response[0])
 		})
 	}
 
@@ -132,7 +132,12 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 		})
 		.error(function(response){
 			console.log("Failed to Register")
+			console.log(response)
+			console.log(response[0])
+			$('.register_error h5').html(response[0])
+			$('.register_error').show()
 			$("#myRegisterModal").modal("toggle")
+
 		})
 	}
 

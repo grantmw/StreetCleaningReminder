@@ -2,7 +2,11 @@ h5 {
 	display: inline;
 }
 
-.no_reminders, .not_logged_in {
+.no_reminders, .not_logged_in, .register_error {
 	display: none;
 }
 
+
+.register_error {
+	color: #ff1a1a;
+}

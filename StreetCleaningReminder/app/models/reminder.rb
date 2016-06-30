@@ -16,10 +16,11 @@ class Reminder < ActiveRecord::Base
 	validates :duration, presence: true
 	validates :day, presence: true
 	validates :frequency, presence: true
+	validates :complete_time, presence: true, :uniqueness => {message: "Failed. No Duplicates."}
 
 	def reminders_within_limit
 		if self.user.reminders.length > 5
-			errors.add(:over_limit, "over limit") 
+			errors.add(:over_limit, "Sorry, you can only make 6 reminders.") 
 		end
 	end
 
@@ -153,6 +154,8 @@ class Reminder < ActiveRecord::Base
 			else
 				if frequency == '2nd and 4th'
 					run_time = Chronic.parse("2nd #{day} next month") - (12*60*60) + (hour*60*60)
+				elsif frequency == '1st and 3rd'
+					run_time = Chronic.parse("1st #{day} next month") - (12*60*60) + (hour*60*60)
 				end
 			end
 		end

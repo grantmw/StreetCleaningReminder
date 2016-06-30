@@ -39,8 +39,10 @@ ActiveRecord::Schema.define(version: 20160601164821) do
     t.integer  "duration"
     t.string   "day"
     t.string   "frequency"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "complete_time"
+    t.string   "reminder_name"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|

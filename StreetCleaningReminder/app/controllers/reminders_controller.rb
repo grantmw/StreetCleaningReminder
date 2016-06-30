@@ -34,7 +34,7 @@ class RemindersController < ApplicationController
 		# p time
 		# reminder.delay(run_at: time).send_message
 		user = User.find_by(phone_number: params["phone_number"])
-		reminder = Reminder.new(user_id: user.id, hour: params[:hourAndDuration][0..1].to_i, duration: params[:hourAndDuration][-2..-1].to_i, day: params[:day], frequency: params[:frequency])
+		reminder = Reminder.new(user_id: user.id, hour: params[:hourAndDuration][0..1].to_i, duration: params[:hourAndDuration][-2..-1].to_i, day: params[:day], frequency: params[:frequency], reminder_name: params[:reminder_name], complete_time: params[:hourAndDuration][0..1] + params[:hourAndDuration][-2..-1] + params[:day] + params[:frequency])
 		if reminder.save
 			p "In create route, successfully saved reminder"
 			obj = {
@@ -44,7 +44,7 @@ class RemindersController < ApplicationController
 		else
 			p "In create route, failed to save reminder"
 			# render nothing: true, status: 404	
-			render json: reminder.errors[:over_limit], status: 404
+			render json: reminder.errors.full_messages, status: 404
 		end
 
 		# end

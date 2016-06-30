@@ -40,6 +40,9 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Register </h4>
+        <div class="has-error register_error">
+        	<h5></h5>
+        </div>
       </div>
       <div class="modal-body">
         <form>
@@ -75,7 +78,7 @@
 	<div class="show_reminders">
 		<h1>Your reminders: </h1>
 		<div ng-repeat="reminder in reminders">
-			<ul><h5>Day: </h5>{{reminder.day.toUpperCase()}} | <h5>Start Time: </h5>{{reminder.hour}}:00 (military) | <h5>Duration: </h5>{{reminder.duration}} hrs |<h5>Monthly Frequency: </h5>{{reminder.frequency}} | <button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button></ul>
+			<ul><h5>Reminder Name: </h5>{{reminder.reminder_name.toUpperCase()}} | <h5>Day: </h5>{{reminder.day.toUpperCase()}} | <h5>Start Time: </h5>{{reminder.hour}}:00 (military) | <h5>Duration: </h5>{{reminder.duration}} hrs |<h5>Monthly Frequency: </h5>{{reminder.frequency}} | <button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button></ul>
 		</div>
 	</div>
 	<h1>Create your reminder times</h1>
@@ -83,6 +86,9 @@
 		<div>
 
 			<form>
+				<label for="reminder_name_input">Reminder name: </label>
+				<input type="text" name="reminder_name_input" ng-model="reminder_name">
+				<br>
 				<label for="hourAndDuration">Select Time</label>
 				<select name="hourAndDuration" ng-model='hourAndDuration'>
 				  <option value="00_06">12:01am - 6am</option>
