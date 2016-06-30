@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
 			if user.password == params[:password]
 				session[:id] = user.id
 				obj = {
+					user_name: user.user_name,
 					user_phone_number: user.phone_number,
 					reminders: user.reminders
 				}

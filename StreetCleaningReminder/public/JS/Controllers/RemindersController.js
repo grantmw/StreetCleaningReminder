@@ -1,16 +1,19 @@
 app.controller('RemindersController', ['$scope', '$http', '$cookies', function($scope, $http, $cookies){
 	// take out all cookies?
-	console.log("in the reminders controller")
-	// $scope.reminders = JSON.parse($cookies.get('reminders'))
 	$scope.reminders = []
 
 
 	var check_login = function(){	
 		if ($cookies.get('loggedin') == 'false' || typeof $cookies.get('loggedin') == 'undefined'){
-			$("#myModal").modal("toggle")
+			$(".not_logged_in").show()
+			$('.show_reminders').hide()
 		}
-		console.log($cookies.get('loggedin'))
-		console.log("is the person logged in? --> True")
+		else {
+			$(".not_logged_in").hide()
+			$('.welcome_message').html('Logged in as: ' + $cookies.get('user_name'))
+			console.log("is the person logged in? --> True")
+
+		}
 	}
 	check_login()
 
@@ -25,7 +28,9 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 			$scope.reminders = response['reminders']
 			if($scope.reminders.length == 0){
 				$(".show_reminders").hide()
-				$(".no_reminders").show()	
+				if ($cookies.get('loggedin') == 'true'){
+					$(".no_reminders").show()	
+				}
 				console.log("should have hid show reminders div")		
 			} else {
 				$(".show_reminders").show()
@@ -79,6 +84,7 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 	$scope.frequency = ''
 	$scope.phone_number = ""
 	$scope.password = ""
+	$scope.user_name = ""
 	// console.log(shareVariables.getProperty())
 
 
@@ -114,22 +120,21 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 		var user = {
 			"phone_number": $scope.phone_number,
 			"password": $scope.password 
+
 		}
 
 
 		$http.post('/sessions', user).success(function(response){
-			// console.log(response['reminders'])
 			console.log(String(response['user_phone_number']))
 			$cookies.put('loggedin', 'true')
-
-			// shareVariables.setProperty(response[user])
+			$cookies.put('user_name', response['user_name'])
 			$scope.reminders = response['reminders']
+			$scope.user_name = response['user_name']
 			$scope.phone_number = String(response['user_phone_number'])
-			// $cookies.put('reminders', JSON.stringify(response['reminders']))
 			$cookies.put('user_phone_number', String(response['user_phone_number']))
-			// $cookies.putObject('results', response['results']);
-			window.location = '/#/'
-
+			$('.welcome_message').html('Logged in as: ' + $scope.user_name)
+			get_reminders()
+			check_login()
 		})
 		.error(function(response){
 			console.log("Failed")
@@ -137,5 +142,43 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 			$cookies.put('user_phone_number', 'not logged in')
 			$("#myModal").modal("toggle")
 		})
+	}	
+
+	$scope.register = function(){
+		var user = {
+			"phone_number": $scope.phone_number,
+			"password": $scope.password,
+			"user_name": $scope.user_name
+
+		}
+
+
+		$http.post('/users', user).success(function(response){
+			// console.log(response['reminders'])
+			// console.log(String(response['user_phone_number']))
+			// $cookies.put('loggedin', 'true')
+
+			// // shareVariables.setProperty(response[user])
+			// $scope.reminders = response['reminders']
+			// $scope.phone_number = String(response['user_phone_number'])
+			// // $cookies.put('reminders', JSON.stringify(response['reminders']))
+			// $cookies.put('user_phone_number', String(response['user_phone_number']))
+			// // $cookies.putObject('results', response['results']);
+			// window.location = '/#/'
+			console.log("Successfully Registered")
+
+		})
+		.error(function(response){
+			console.log("Failed to Register")
+			$("#myRegisterModal").modal("toggle")
+		})
+	}
+
+	$scope.log_out = function(){
+		$cookies.remove('loggedin')
+		$cookies.remove('user_phone_number')
+		$cookies.remove('user_name')
+		$('.welcome_message').css("display", "none")
+		check_login()
 	}
 }])

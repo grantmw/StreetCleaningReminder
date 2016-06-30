@@ -2,6 +2,7 @@ h5 {
 	display: inline;
 }
 
-.no_reminders {
+.no_reminders, .not_logged_in {
 	display: none;
 }
+
