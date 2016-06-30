@@ -100,8 +100,11 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 		})
 		.error(function(response){
-			console.log('this is the response of create_reminders function:')
+			console.log('this is the error response of create_reminders function:')
 			console.log(response)
+			if(response[0] == "over limit"){
+				alert("Sorry, you cannot make more than six reminders.")
+			}
 			console.log("Failed")
 		})
 	}

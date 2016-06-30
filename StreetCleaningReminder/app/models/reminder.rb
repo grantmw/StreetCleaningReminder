@@ -19,7 +19,7 @@ class Reminder < ActiveRecord::Base
 
 	def reminders_within_limit
 		if self.user.reminders.length > 5
-			errors.add(:over_limit, "Sorry - You cannot create more than 6 reminders") 
+			errors.add(:over_limit, "over limit") 
 		end
 	end
 
@@ -157,7 +157,7 @@ class Reminder < ActiveRecord::Base
 			end
 		end
 
-		run_time
+		run_time - (12*60*60)
 	end
 
 end
