@@ -4,11 +4,12 @@
 class UsersController < ApplicationController
 
   def create
-    user = User.new(first_name: params['email'], password: params['password'], phone_number: params['phone_number'])
+    user = User.new(user_name: params['user_name'], password: params['password'], phone_number: params['phone_number'])
     if user.save
-      render json: user, status: :created
+      render json: user.phone_number, status: :created
     else
-      render nothing: true, status: 406
+      p user.errors
+      render json: user.errors.full_messages, status: 406
     end
   end
 

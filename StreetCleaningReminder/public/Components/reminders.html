@@ -1,11 +1,15 @@
 <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Sign In</button>
 
-<!-- Modal -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Sign In</button>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myRegisterModal">Register</button>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" ng-click="log_out()">Log Out</button>
+
+<div class="welcome_message">
+</div>
+
+<!-- SignIn Modal -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
-
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -29,19 +33,62 @@
 
   </div>
 </div>
+<!-- Register Modal -->
+<div id="myRegisterModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Register </h4>
+        <div class="has-error register_error">
+        	<h5></h5>
+        </div>
+      </div>
+      <div class="modal-body">
+        <form>
+    	  <label for="phone_number">Username:</label>
+          <input type="text" name="phone_number" ng-model="user_name">
+          <br>
+          <label for="phone_number">Phone Number:</label>
+          <input type="text" name="phone_number" ng-model="phone_number">
+          <br>
+          <label for="email">Password:</label>
+          <input type="password" name="password" ng-model="password">
+          <br>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="register()">Register</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 			
 
 <div>
-	<h1>These are your reminders</h1>
 	<h3>Add up to six street cleaning times, and receive text message reminders 12 hours before street cleaning starts. Never get a ticket again!</h3>
-	<div ng-repeat="reminder in reminders">
-		<ul><h5>Day: </h5>{{reminder.day.toUpperCase()}} | <h5>Start Time: </h5>{{reminder.hour}}:00 (military) | <h5>Duration: </h5>{{reminder.duration}} hrs |<h5>Monthly Frequency: </h5>{{reminder.frequency}} | <button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button></ul>
+	<div class="no_reminders">
+		...you do not seem to have any reminders. Make some below!
+	</div>
+	<div class="not_logged_in">
+		Login or Register to get started.
+	</div>
+	<div class="show_reminders">
+		<h1>Your reminders: </h1>
+		<div ng-repeat="reminder in reminders">
+			<ul><h5>Reminder Name: </h5>{{reminder.reminder_name.toUpperCase()}} | <h5>Day: </h5>{{reminder.day.toUpperCase()}} | <h5>Start Time: </h5>{{reminder.hour}}:00 (military) | <h5>Duration: </h5>{{reminder.duration}} hrs |<h5>Monthly Frequency: </h5>{{reminder.frequency}} | <button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button></ul>
+		</div>
 	</div>
 	<h1>Create your reminder times</h1>
 	<div>
 		<div>
 
 			<form>
+				<label for="reminder_name_input">Reminder name: </label>
+				<input type="text" name="reminder_name_input" ng-model="reminder_name">
+				<br>
 				<label for="hourAndDuration">Select Time</label>
 				<select name="hourAndDuration" ng-model='hourAndDuration'>
 				  <option value="00_06">12:01am - 6am</option>
@@ -68,13 +115,6 @@
 				  <option value="wednesday">Wednesday</option>
 				  <option value="thursday">Thursday</option>
 				  <option value="friday">Friday</option>
-		<!-- 		  <option value="1,3">Mon. and Wed.</option>
-				  <option value="1,4">Mon. and Thu.</option>
-				  <option value="1,5">Mon. and Fri.</option>
-				  <option value="2,4">Tue. and Thu.</option>
-				  <option value="2,5">Tue. and Fri.</option>
-				  <option value="3,5">Wed. and Fri.</option>
-				  <option value="1,3,5">Mon. Wed. Fri.</option> -->
 				</select>
 				<br>
 				<label for="Frequency">Frequency</label>

@@ -23,10 +23,9 @@ class RemindersController < ApplicationController
 	end
 
 	def create
-		p "8" * 10
+		p "*" * 80
 		p params
-		p params["phone_number"]
-		p "8" * 10
+		p "*" * 80
 
 		# reminder = Reminder.create()
 		# reminder.send_message
@@ -34,18 +33,30 @@ class RemindersController < ApplicationController
 		# time = DateTime.new(2016,6,8,16,50,30,'-7')
 		# p time
 		# reminder.delay(run_at: time).send_message
-		if session[:id] = User.find_by(phone_number: params["phone_number"]).id
-			p 'the user is found, signed in and is able to make reminder'
-			Reminder.create(user_id: session[:id], hour: params[:hourAndDuration][0..1].to_i, duration: params[:hourAndDuration][-2..-1].to_i, day: params[:day], frequency: params[:frequency])
-			user = User.find(session[:id])
+		user = User.find_by(phone_number: params["phone_number"])
+		reminder = Reminder.new(user_id: user.id, hour: params[:hourAndDuration][0..1].to_i, duration: params[:hourAndDuration][-2..-1].to_i, day: params[:day], frequency: params[:frequency], reminder_name: params[:reminder_name], complete_time: params[:hourAndDuration][0..1] + params[:hourAndDuration][-2..-1] + params[:day] + params[:frequency])
+		if reminder.save
+			p "In create route, successfully saved reminder"
 			obj = {
-					# user_phone_number: user.phone_number,
-					reminders: user.reminders
-				}
+				reminders: user.reminders
+			}
 			render json: obj, status: :created
 		else
-			render nothing: true, status: 404	
+			p "In create route, failed to save reminder"
+			# render nothing: true, status: 404	
+			render json: reminder.errors.full_messages, status: 404
 		end
+
+		# end
+		# 	user = User.find(session[:id])
+		# 	obj = {
+		# 			reminders: user.reminders
+		# 		}
+		# 	render json: obj, status: :created
+		# else
+		# 	p reminder.errors
+		# 	render nothing: true, status: 404	
+		# end
 	end
 
 	def destroy

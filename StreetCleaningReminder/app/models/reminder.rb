@@ -2,6 +2,9 @@ class Reminder < ActiveRecord::Base
 
 	belongs_to :user
 	after_create :schedule_reminder
+	validate :reminders_within_limit, :on => :create
+
+
 
 	# account_sid = APP_CONFIG['account_sid']
 	# auth_token = APP_CONFIG['auth_token']
@@ -13,6 +16,13 @@ class Reminder < ActiveRecord::Base
 	validates :duration, presence: true
 	validates :day, presence: true
 	validates :frequency, presence: true
+	validates :complete_time, presence: true, :uniqueness => {message: "Failed. No Duplicates."}
+
+	def reminders_within_limit
+		if self.user.reminders.length > 5
+			errors.add(:over_limit, "Sorry, you can only make 6 reminders.") 
+		end
+	end
 
 	def send_message
 		# Rails.logger.debug(@client)
@@ -144,11 +154,13 @@ class Reminder < ActiveRecord::Base
 			else
 				if frequency == '2nd and 4th'
 					run_time = Chronic.parse("2nd #{day} next month") - (12*60*60) + (hour*60*60)
+				elsif frequency == '1st and 3rd'
+					run_time = Chronic.parse("1st #{day} next month") - (12*60*60) + (hour*60*60)
 				end
 			end
 		end
 
-		run_time
+		run_time - (12*60*60)
 	end
 
 end

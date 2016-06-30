@@ -5,7 +5,9 @@ class CreateReminders < ActiveRecord::Migration
   		t.integer :hour
       t.integer :duration
   		t.string :day
-  		t.string :frequency 
+  		t.string :frequency
+      t.string :complete_time
+      t.string :reminder_name 
 
     	t.timestamps null: false
     end

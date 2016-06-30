@@ -8,8 +8,8 @@ class SessionsController < ApplicationController
 		if user = User.find_by(phone_number: params["phone_number"])
 			p 'signed in'
 			if user.password == params[:password]
-				session[:id] = user.id
 				obj = {
+					user_name: user.user_name,
 					user_phone_number: user.phone_number,
 					reminders: user.reminders
 				}

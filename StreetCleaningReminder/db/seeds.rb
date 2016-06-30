@@ -7,6 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-User.create(first_name: 'Grant', phone_number: APP_CONFIG['my_phone_number'], password: '111111')
+User.create(user_name: 'Grant', phone_number: APP_CONFIG['my_phone_number'], password: '111111')
 
 
