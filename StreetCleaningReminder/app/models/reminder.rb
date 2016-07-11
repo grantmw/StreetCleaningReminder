@@ -2,8 +2,8 @@ class Reminder < ActiveRecord::Base
 
 	belongs_to :user
 	after_create :schedule_reminder
+  
 	validate :reminders_within_limit, :on => :create
-
 
 
 	# account_sid = APP_CONFIG['account_sid']
@@ -17,6 +17,7 @@ class Reminder < ActiveRecord::Base
 	validates :day, presence: true
 	validates :frequency, presence: true
 	validates :complete_time, presence: true, :uniqueness => {message: "Failed. No Duplicates."}
+
 
 	def reminders_within_limit
 		if self.user.reminders.length > 5
