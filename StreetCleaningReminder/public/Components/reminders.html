@@ -84,9 +84,32 @@
 			<div class="show_reminders">
 				<h1>Your reminders: </h1>
 				<div ng-repeat="reminder in reminders" class="list-group-item list-group-item-warning">
-					<ul><h5>Reminder Name: </h5>{{reminder.reminder_name.toUpperCase()}} | <h5>Day: </h5>{{reminder.day.toUpperCase()}} | <h5>Start Time: </h5>{{reminder.hour}}:00 (military) | <h5>Duration: </h5>{{reminder.duration}} hrs |<h5> Monthly Frequency: </h5>{{reminder.frequency}}
-					<br>
-					<button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button></ul>
+					<div class="row reminder-info">
+						<div class="col-md-7">
+							<br>
+							<h5>Day: </h5>{{reminder.day.toUpperCase()}}
+							<br>
+							<h5>Start Time: </h5>{{reminder.hour}}:00 (Military Time)
+							<br>
+							<h5> Monthly Frequency: </h5>{{reminder.frequency.toUpperCase()}}
+							<br>
+							<h5>Duration: </h5>{{reminder.duration}} hrs 
+						</div>
+						<div class="col-md-5">
+							<div class="reminder-name">
+							{{reminder.reminder_name.toUpperCase()}}
+							</div>
+							<br>
+							<br>			
+						</div>
+						<div class="delete-button">
+								<button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button>
+						</div>
+					</div>
+				<!-- 	<div class="reminder-right">
+						
+					</div> -->
+					
 				</div>
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-h5 {
+h5, h4 {
 	display: inline;
 }
 
@@ -17,3 +17,21 @@ h5 {
         max-width: 970px;
     }
 }
+
+.reminder-info {
+	font-size: 12px;
+	position: relative;
+
+}
+
+.reminder-name {
+	float: right;
+	font-size: 18px;
+}
+
+.delete-button {
+	position: absolute; 
+	bottom: 0px; 
+	right: 3px;
+}
+
