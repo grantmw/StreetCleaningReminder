@@ -6,11 +6,6 @@ class Reminder < ActiveRecord::Base
 	validate :reminders_within_limit, :on => :create
 
 
-	# account_sid = APP_CONFIG['account_sid']
-	# auth_token = APP_CONFIG['auth_token']
-	# @client = Twilio::REST::Client.new(account_sid, auth_token)
-
-
 	validates :user_id, presence: true
 	validates :hour, presence: true
 	validates :duration, presence: true
