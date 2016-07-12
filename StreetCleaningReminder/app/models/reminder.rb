@@ -21,7 +21,6 @@ class Reminder < ActiveRecord::Base
 	end
 
 	def send_message
-		# Rails.logger.debug(@client)
 		p "ran send_message"
 
 		account_sid = APP_CONFIG['account_sid']

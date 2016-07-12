@@ -27,12 +27,7 @@ class RemindersController < ApplicationController
 		p params
 		p "*" * 80
 
-		# reminder = Reminder.create()
-		# reminder.send_message
-		# p Time.now
-		# time = DateTime.new(2016,6,8,16,50,30,'-7')
-		# p time
-		# reminder.delay(run_at: time).send_message
+	
 		user = User.find_by(phone_number: params["phone_number"])
 		default_name = params[:reminder_name]
 		if params[:reminder_name].length == 0
@@ -51,16 +46,7 @@ class RemindersController < ApplicationController
 			render json: reminder.errors.full_messages, status: 404
 		end
 
-		# end
-		# 	user = User.find(session[:id])
-		# 	obj = {
-		# 			reminders: user.reminders
-		# 		}
-		# 	render json: obj, status: :created
-		# else
-		# 	p reminder.errors
-		# 	render nothing: true, status: 404	
-		# end
+
 	end
 
 	def destroy
