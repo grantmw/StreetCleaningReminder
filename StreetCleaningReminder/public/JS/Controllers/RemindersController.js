@@ -81,12 +81,13 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 		$http.post('/reminders', reminder_attr).success(function(response){
 			get_reminders()
-			// $cookies.put('email', response['user']['email'])
-			// $cookies.putObject('results', response['results']);
-
+			// reset all forms 
+			$('form').each(function() { this.reset() })
+			$('select').each(function() { this.selectedIndex = -1 })
 		})
 		.error(function(response){
 			console.log("Failed to create_reminder")
+			console.log(response)
 			alert(response[0])
 		})
 	}

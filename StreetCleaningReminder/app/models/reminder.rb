@@ -2,13 +2,8 @@ class Reminder < ActiveRecord::Base
 
 	belongs_to :user
 	after_create :schedule_reminder
+  
 	validate :reminders_within_limit, :on => :create
-
-
-
-	# account_sid = APP_CONFIG['account_sid']
-	# auth_token = APP_CONFIG['auth_token']
-	# @client = Twilio::REST::Client.new(account_sid, auth_token)
 
 
 	validates :user_id, presence: true
@@ -18,6 +13,7 @@ class Reminder < ActiveRecord::Base
 	validates :frequency, presence: true
 	validates :complete_time, presence: true, :uniqueness => {message: "Failed. No Duplicates."}
 
+
 	def reminders_within_limit
 		if self.user.reminders.length > 5
 			errors.add(:over_limit, "Sorry, you can only make 6 reminders.") 
@@ -25,7 +21,6 @@ class Reminder < ActiveRecord::Base
 	end
 
 	def send_message
-		# Rails.logger.debug(@client)
 		p "ran send_message"
 
 		account_sid = APP_CONFIG['account_sid']
