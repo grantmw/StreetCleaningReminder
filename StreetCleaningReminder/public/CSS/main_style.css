@@ -1,0 +1,40 @@
+h5, h4 {
+	display: inline;
+}
+
+.no_reminders, .not_logged_in, .register_error {
+	display: none;
+}
+
+.register_error {
+	color: #ff1a1a;
+}
+
+
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 970px;
+    }
+}
+
+.reminder-info {
+	font-size: 12px;
+	position: relative;
+
+}
+
+.reminder-name {
+	float: right;
+	font-size: 18px;
+}
+
+.delete-button {
+	position: absolute; 
+	bottom: 0px; 
+	right: 3px;
+}
+
+.name-input {
+	width: 80%
+}

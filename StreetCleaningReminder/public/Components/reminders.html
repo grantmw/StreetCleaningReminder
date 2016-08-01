@@ -1,0 +1,167 @@
+<!-- Trigger the modal with a button -->
+
+<div class="header row">
+	<div class="col-md-5">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sign In</button>
+		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myRegisterModal">Register</button>
+		<button type="button" class="btn btn-danger" data-toggle="modal" ng-click="log_out()">Log Out</button>
+	</div>
+	<div class="col-md-5"></div>
+	<div class="welcome_message col-md-2"></div>
+</div>
+
+<!-- SignIn Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sign In </h4>
+      </div>
+      <div class="modal-body">
+        <form>
+    	  <label for="phone_number">Phone Number:</label>
+          <input type="text" name="phone_number" ng-model="phone_number">
+          <br>
+          <label for="email">Password:</label>
+          <input type="password" name="password" ng-model="password">
+          <br>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="signin()">Sign In</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Register Modal -->
+<div id="myRegisterModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Register </h4>
+        <div class="has-error register_error">
+        	<h5></h5>
+        </div>
+      </div>
+      <div class="modal-body">
+        <form>
+    	  <label for="phone_number">Username:</label>
+          <input type="text" name="phone_number" ng-model="user_name">
+          <br>
+          <label for="phone_number">Phone Number:</label>
+          <input type="text" name="phone_number" ng-model="phone_number">
+          <br>
+          <label for="email">Password:</label>
+          <input type="password" name="password" ng-model="password">
+          <br>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="register()">Register</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+			
+
+<div>
+	<div class="row">
+		<div class="purpose col-md-7">
+			<h3>Add up to six street cleaning times, and receive text message reminders 12 hours before street cleaning starts. Never get a ticket again!</h3>
+
+			<div class="no_reminders">
+				...you do not seem to have any reminders.
+			</div>
+			<div class="not_logged_in">
+				Login or Register to get started.
+			</div>
+			<div class="show_reminders">
+				<h1>Your reminders: </h1>
+				<div ng-repeat="reminder in reminders" class="list-group-item list-group-item-warning">
+					<div class="row reminder-info">
+						<div class="col-md-7">
+							<br>
+							<h5>Day: </h5>{{reminder.day.toUpperCase()}}
+							<br>
+							<h5>Start Time: </h5>{{reminder.hour}}:00 (Military Time)
+							<br>
+							<h5> Monthly Frequency: </h5>{{reminder.frequency.toUpperCase()}}
+							<br>
+							<h5>Duration: </h5>{{reminder.duration}} hrs 
+						</div>
+						<div class="col-md-5">
+							<div class="reminder-name">
+							{{reminder.reminder_name.toUpperCase()}}
+							</div>
+							<br>
+							<br>			
+						</div>
+						<div class="delete-button">
+								<button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button>
+						</div>
+					</div>
+				<!-- 	<div class="reminder-right">
+						
+					</div> -->
+					
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-4">
+			<h1>Create your reminder times</h1>
+			<div>
+				<div>
+					<form>
+						<label for="reminder_name_input">Reminder name: </label>
+						<input class="name-input" type="text" name="reminder_name_input" placeholder="ex. Geary Street - North Side" ng-model="reminder_name">
+						<br>
+						<label for="hourAndDuration">Select Time</label>
+						<select name="hourAndDuration" ng-model='hourAndDuration'>
+						  <option value="00_06">12:01am - 6am</option>
+						  <option value="00_02">12:01am - 2am</option>
+						  <option value="01_02">1am - 3am</option>
+						  <option value="02_02">2am - 4am</option>
+						  <option value="03_02">3am - 5am</option>
+						  <option value="04_02">4am - 6am</option>
+						  <option value="05_02">5am - 7am</option>
+						  <option value="06_02">6am - 8am</option>
+						  <option value="07_02">7am - 9am</option>
+						  <option value="08_02">8am - 10am</option>
+						  <option value="09_02">9am - 11am</option>
+						  <option value="10_02">10am - 12pm</option>
+						  <option value="11_02">11am - 1pm</option>
+						  <option value="12_02">12pm - 2pm</option>
+						  <option value="13_02">1pm - 3pm</option>
+						</select>
+						<br>
+						<label for="Day">Select Day(s)</label>
+						<select name="Day" ng-model='day' required>
+						  <option value="monday">Monday</option>
+						  <option value="tuesday">Tuesday</option>
+						  <option value="wednesday">Wednesday</option>
+						  <option value="thursday">Thursday</option>
+						  <option value="friday">Friday</option>
+						</select>
+						<br>
+						<label for="Frequency">Frequency</label>
+						<select name="Frequency" ng-model='frequency'>
+						  <option value="weekly">Weekly</option>
+						  <option value="1st and 3rd">1st&3rd</option>
+						  <option value="2nd and 4th">2nd&4th</option>
+						</select>
+						<br>
+				    </form>
+		   			<button class="btn btn-success" type="button" ng-click="create_reminder()">Make Reminder</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
