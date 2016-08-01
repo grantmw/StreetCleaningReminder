@@ -19,6 +19,7 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 		}
 		else {
 			$(".not_logged_in").hide()
+			//for auto-signin
 			$('.welcome_message').html('Logged in as: ' + $cookies.get('user_name'))
 		}
 	}
@@ -108,9 +109,10 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 			$scope.user_name = response['user_name']
 			$scope.phone_number = String(response['user_phone_number'])
 			$cookies.put('user_phone_number', String(response['user_phone_number']))
-			$('.welcome_message').html('Logged in as: ' + $scope.user_name)
-			get_reminders()
+			//not working
+			$('.welcome_message').html("Logged in as: " + $scope.user_name)
 			check_login()
+			get_reminders()
 		})
 		.error(function(response){
 			console.log("Failed")
@@ -146,6 +148,7 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 		$cookies.remove('loggedin')
 		$cookies.remove('user_phone_number')
 		$cookies.remove('user_name')
+		$scope.user_name = ""
 		$('.welcome_message').css("display", "none")
 		check_login()
 	}
