@@ -18,7 +18,7 @@ class RemindersController < ApplicationController
 		if params[:reminder_name].length == 0
 			default_name = "[No Name]"
 		end
-		reminder = Reminder.new(user_id: user.id, hour: params[:hourAndDuration][0..1].to_i, duration: params[:hourAndDuration][-2..-1].to_i, day: params[:day], frequency: params[:frequency], reminder_name: default_name, complete_time: params[:hourAndDuration][0..1] + params[:hourAndDuration][-2..-1] + params[:day] + params[:frequency])
+		reminder = Reminder.new(user_id: user.id, hour: params[:hourAndDuration][0..1].to_i, duration: params[:hourAndDuration][-2..-1].to_i, day: params[:day], frequency: params[:frequency], reminder_name: default_name, complete_time: params[:hourAndDuration][0..1] + params[:hourAndDuration][-2..-1] + params[:day] + params[:frequency] + user.id.to_s)
 		if reminder.save
 			obj = {
 				reminders: user.reminders

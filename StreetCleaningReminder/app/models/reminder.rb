@@ -32,7 +32,7 @@ class Reminder < ActiveRecord::Base
 		  from: "+12404910241",
 		  body: "STREET CLEANING ALERT\n Reminder Name: #{self.reminder_name}\n Street cleaning will start in 12 hours!"
 		)
-		schedule_reminder
+		# schedule_reminder
 
 	end
 
