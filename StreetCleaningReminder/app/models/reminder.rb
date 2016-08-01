@@ -28,9 +28,9 @@ class Reminder < ActiveRecord::Base
 		@client = Twilio::REST::Client.new(account_sid, auth_token)
 
 		@message = @client.account.messages.create(
-		  to: "+13015806553",
+		  to: "+1" + self.user.phone_number,
 		  from: "+12404910241",
-		  body: "Please work Please work Please work"
+		  body: "STREET CLEANING ALERT\n Reminder Name: #{self.reminder_name}\n Street cleaning will start in 12 hours!"
 		)
 		schedule_reminder
 
