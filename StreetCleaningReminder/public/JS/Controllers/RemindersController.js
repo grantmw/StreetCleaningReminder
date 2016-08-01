@@ -19,7 +19,6 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 		}
 		else {
 			$(".not_logged_in").hide()
-			//for auto-signin
 			$('.welcome_message').html('Logged in as: ' + $cookies.get('user_name'))
 		}
 	}
@@ -82,7 +81,6 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 		$http.post('/reminders', reminder_attr).success(function(response){
 			get_reminders()
-			// reset all forms 
 			$('form').each(function() { this.reset() })
 			$('select').each(function() { this.selectedIndex = -1 })
 		})
@@ -109,7 +107,6 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 			$scope.user_name = response['user_name']
 			$scope.phone_number = String(response['user_phone_number'])
 			$cookies.put('user_phone_number', String(response['user_phone_number']))
-			//not working
 			$('.welcome_message').html("Logged in as: " + $scope.user_name)
 			check_login()
 			get_reminders()

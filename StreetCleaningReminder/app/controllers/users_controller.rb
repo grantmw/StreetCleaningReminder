@@ -1,6 +1,3 @@
-# require 'rest_client'
-# require 'json'
-
 class UsersController < ApplicationController
 
   def create
@@ -13,12 +10,4 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
-
-  def destroy
-  end
 end

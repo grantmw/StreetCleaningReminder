@@ -5,7 +5,6 @@ class Reminder < ActiveRecord::Base
   
 	validate :reminders_within_limit, :on => :create
 
-
 	validates :user_id, presence: true
 	validates :hour, presence: true
 	validates :duration, presence: true
@@ -15,13 +14,14 @@ class Reminder < ActiveRecord::Base
 
 
 	def reminders_within_limit
+
 		if self.user.reminders.length > 5
 			errors.add(:over_limit, "Sorry, you can only make 6 reminders.") 
 		end
+
 	end
 
 	def send_message
-		p "ran send_message"
 
 		account_sid = APP_CONFIG['account_sid']
 		auth_token = APP_CONFIG['auth_token']
@@ -33,41 +33,19 @@ class Reminder < ActiveRecord::Base
 		  body: "Please work Please work Please work"
 		)
 		schedule_reminder
+
 	end
 
 	def schedule_reminder
-		# curr_year = Time.now.year
-		# curr_month = Time.now.month
-		# curr_day = Time.now.day
-		# curr_week_day = Time.now.wday
-		# sc_day = self.day.to_i
-		# days_until = 0
-		# if curr_week_day < sc_day
-		# 	days_until = sc_day - curr_week_day
-		# else
-		# 	days_until = 7 + (sc_day - curr_week_day)
-		# end
-		# # if self.frequency == "weekly"
 
-		# # end
-		# p "poop"
-		# p self.hour
-		# p self.frequency
-
-		
-		next_minute = Time.now.min + 1
 		time_object = Reminder.create_runtime(self.hour, self.day, self.frequency)
-		p time_object
 		datetime_object = DateTime.parse(time_object.to_s)
-		# DateTime.new(2016,6,19,00, next_minute,30,'-7')
-		p "it ran" * 10
-		p datetime_object
-
-		p "it ran" * 10
 		self.delay(run_at: datetime_object, reminder_id: self.id).send_message
+
 	end
 
 	def self.create_runtime(hour, day, frequency)
+
 		run_time = nil
 		month = ""
 		case DateTime.now.month
@@ -116,31 +94,27 @@ class Reminder < ActiveRecord::Base
 		if frequency == 'weekly'
 			run_time = Chronic.parse("next #{day}") - (12*60*60) + (hour*60*60)
 		elsif frequency == '1st and 3rd' || frequency == '2nd and 4th'
-			#check intervals
-			#before 1st wday of month
-			p run_time
-			p day
-			p month
-			if Time.now <= Chronic.parse("1st #{day} this #{month}") - (12*60*60) + (hour*60*60)# - (12*60*60)
+
+			if Time.now <= Chronic.parse("1st #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				if frequency == '1st and 3rd'
 					run_time = Chronic.parse("1st #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				else
 					run_time = Chronic.parse("2nd #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				end
-			elsif Time.now <= Chronic.parse("2nd #{day} this #{month}") - (12*60*60) + (hour*60*60)# - (12*60*60)
+			elsif Time.now <= Chronic.parse("2nd #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				if frequency == '1st and 3rd'
 					run_time = Chronic.parse("3rd #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				else
 					run_time = Chronic.parse("2nd #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				end
 			#before 3rd wday of month
-			elsif Time.now <= Chronic.parse("3rd #{day} this #{month}") - (12*60*60) + (hour*60*60)# - (12*60*60)
+			elsif Time.now <= Chronic.parse("3rd #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				if frequency == '1st and 3rd'
 					run_time = Chronic.parse("3rd #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				else
 					run_time = Chronic.parse("4th #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				end
-			elsif Time.now <= Chronic.parse("4th #{day} this #{month}") - (12*60*60) + (hour*60*60)# - (12*60*60)
+			elsif Time.now <= Chronic.parse("4th #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				if frequency == '2nd and 4th'
 					run_time = Chronic.parse("4th #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				else
