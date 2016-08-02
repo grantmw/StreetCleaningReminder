@@ -15,3 +15,5 @@
 
 # For ignoring keys and seed phonenumbers, etc.
 /config/secrets.yml
+# Ignore application configuration
+/config/application.yml

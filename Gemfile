@@ -17,8 +17,10 @@ gem 'twilio-ruby'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'chronic'
+gem 'figaro'
 
 gem 'rails_12factor', group: :production
+
 
 group :development, :test do
   gem 'byebug'
