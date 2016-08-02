@@ -7,4 +7,4 @@ Rails.application.initialize!
 #uncomment to use secrets.yml
 #APP_CONFIG = YAML.load_file("#{Rails.root}/config/secrets.yml")
 
-APP_CONFIG = YAML.load_file("#{Rails.root}/config/config.yml")
+APP_CONFIG = YAML.load_file("#{Rails.root}/config/application.yml")
