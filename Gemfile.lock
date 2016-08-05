@@ -189,7 +189,7 @@ DEPENDENCIES
   rails-api
   rails_12factor
   rest-client (~> 1.8)
-  sprockets-rails
+  sprockets
   twilio-ruby
 
 BUNDLED WITH
