@@ -17,6 +17,8 @@ Bundler.require(*Rails.groups)
 
 
 
+
+
 module StreetCleaningReminder
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

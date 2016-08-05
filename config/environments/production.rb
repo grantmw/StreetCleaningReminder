@@ -32,6 +32,12 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
+  config.assets.precompile += [
+    'public/components/reminders.html',
+    'public/css/main_style.css',
+    'public/js/controllers/reminderscontroller.js',
+    'public/js/app.js'
+  ]
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
