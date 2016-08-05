@@ -8,7 +8,7 @@ app.config(['$routeProvider', '$locationProvider',
 		$routeProvider
 		.when('/',{
 			controller: 'RemindersController',
-			templateUrl: '../components/reminders.html'
+			templateUrl: '../assets/components/reminders.html'
 		})
 
 	}
