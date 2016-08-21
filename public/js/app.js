@@ -1,4 +1,4 @@
-var app = angular.module('app');
+var app = angular.module('app', ['ngRoute', 'ngCookies']);
 app.config(['$routeProvider', '$locationProvider', 
 	function ($routeProvider, $locationProvider){ 
 		$routeProvider
@@ -9,4 +9,3 @@ app.config(['$routeProvider', '$locationProvider',
 	}
 ]);
 
-//, ['ngRoute', 'ngCookies'] - put right after 'app'
