@@ -20,6 +20,8 @@ gem 'daemons'
 gem 'chronic'
 gem 'figaro'
 
+gem 'workless'
+
 gem 'rails_12factor', group: :production
 
 
