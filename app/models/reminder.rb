@@ -23,8 +23,8 @@ class Reminder < ActiveRecord::Base
 
 	def send_message
 
-		account_sid = ENV["account_sid"]
-		auth_token = ENV["auth_token"]
+		account_sid = ENV["test_account_sid"]
+		auth_token = ENV["test_auth_token"]
 		@client = Twilio::REST::Client.new(account_sid, auth_token)
 
 		@message = @client.account.messages.create(
