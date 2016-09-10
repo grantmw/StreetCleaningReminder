@@ -37,7 +37,7 @@ module StreetCleaningReminder
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.time_zone = 'Pacific Time (US & Canada)'
-    config.active_record.default_timezone = 'Pacific Time (US & Canada)'
+    # config.active_record.default_timezone = 'Pacific Time (US & Canada)'
     config.active_job.queue_adapter = :delayed_job
     config.active_record.raise_in_transactional_callbacks = true
     config.middleware.insert_before 0, 'Rack::Cors' do
