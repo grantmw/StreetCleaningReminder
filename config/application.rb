@@ -17,6 +17,9 @@ Bundler.require(*Rails.groups)
 
 
 
+config.time_zone = 'Pacific Time (US & Canada)'
+config.active_record.default_timezone = 'Pacific Time (US & Canada)'
+
 
 
 module StreetCleaningReminder
