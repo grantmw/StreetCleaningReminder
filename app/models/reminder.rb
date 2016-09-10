@@ -29,9 +29,10 @@ class Reminder < ActiveRecord::Base
 
 		@message = @client.account.messages.create(
 		  to: "+1" + self.user.phone_number,
-		  from: "+12404910241",
+		  from: "+15005550006",
 		  body: "STREET CLEANING ALERT\n Reminder Name: #{self.reminder_name}\n Street cleaning will start in 12 hours!"
 		)
+		#+12404910241
 		# Delayed::Job.find_by(reminder_id: this.id).delete
 		schedule_reminder
 
