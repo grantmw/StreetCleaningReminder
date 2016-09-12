@@ -13,6 +13,9 @@
 	margin-top: 5%;
 }
 
+h5 {
+	display: inline;
+}
 
 .no_reminders, .not-logged-in, .register-error {
 	display: none;
