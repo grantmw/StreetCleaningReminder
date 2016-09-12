@@ -25,12 +25,14 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 	var check_login = function(){	
 		if ($cookies.get('loggedin') == 'false' || typeof $cookies.get('loggedin') == 'undefined'){
-			$(".not_logged_in").show()
+			$(".not-logged-in").show()
 			$('.show_reminders').hide()
+			$(".logged-in").hide()
 		}
 		else {
-			$(".not_logged_in").hide()
-			$('.welcome_message').html('Logged in as: ' + $cookies.get('user_name'))
+			$(".logged-in").show()
+			$(".not-logged-in").hide()
+			$('.welcome-message').html('Logged in as: ' + $cookies.get('user_name'))
 		}
 	}
 	check_login()
@@ -119,13 +121,16 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 			$scope.phone_number = String(response['user_phone_number'])
 			$cookies.put('user_phone_number', String(response['user_phone_number']))
 			$('.welcome_message').html("Logged in as: " + $scope.user_name)
-			check_login()
-			get_reminders()
+			check_login();
+			get_reminders();
+			window.location.reload();
 		})
 		.error(function(response){
 			console.log("Failed")
 			$cookies.put('loggedin', 'false')
 			$cookies.put('user_phone_number', 'not logged in')
+			$('.signin-error h5').html("Incorrect phone number or password")
+			$('.signin-error').show()
 			$("#myModal").modal("toggle")
 		})
 	}	
@@ -140,16 +145,21 @@ app.controller('RemindersController', ['$scope', '$http', '$cookies', function($
 
 		$http.post('/users', user).success(function(response){
 			console.log("Successfully Registered")
+			window.location.reload();
 		})
 		.error(function(response){
 			console.log("Failed to Register")
 			console.log(response)
 			console.log(response[0])
-			$('.register_error h5').html(response[0])
-			$('.register_error').show()
+			$('.register-error h5').html(response[0])
+			$('.register-error').show()
 			$("#myRegisterModal").modal("toggle")
-
 		})
+	}
+
+	$scope.closeModal = function(){
+		$(".modal").hide();
+		window.location.reload();
 	}
 
 	$scope.log_out = function(){

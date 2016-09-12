@@ -1,12 +1,24 @@
-h5, h4 {
-	display: inline;
+* {
+	font-family: 'Montserrat';
 }
 
-.no_reminders, .not_logged_in, .register_error {
+.welcome-message {
+	margin-top: -10%;
+}
+
+.container {
+	background-color: #f3f6f7;
+	padding: 8%;
+	border-radius: 10px;
+	margin-top: 5%;
+}
+
+
+.no_reminders, .not-logged-in, .register-error {
 	display: none;
 }
 
-.register_error {
+.register-error, .signin-error {
 	color: #ff1a1a;
 }
 
@@ -36,5 +48,5 @@ h5, h4 {
 }
 
 .name-input {
-	width: 80%
+	width: 100%
 }

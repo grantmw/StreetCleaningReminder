@@ -1,13 +1,13 @@
 <!-- Trigger the modal with a button -->
 
 <div class="header row">
-	<div class="col-md-5">
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sign In</button>
-		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myRegisterModal">Register</button>
-		<button type="button" class="btn btn-danger" data-toggle="modal" ng-click="log_out()">Log Out</button>
+	<div class="col-xs-5">
+		<button type="button" class="btn btn-primary not-logged-in" data-toggle="modal" data-target="#myModal">Sign In</button>
+		<button type="button" class="btn btn-info not-logged-in" data-toggle="modal" data-target="#myRegisterModal">Register</button>
+		<button type="button" class="btn btn-danger logged-in" data-toggle="modal" ng-click="log_out()">Log Out</button>
 	</div>
-	<div class="col-md-5"></div>
-	<div class="welcome_message col-md-2"></div>
+	<div class="col-xs-5"></div>
+	<div class="welcome-message col-xs-2 logged-in"></div>
 </div>
 
 <!-- SignIn Modal -->
@@ -15,8 +15,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" ng-click="closeModal()">&times;</button>
         <h4 class="modal-title">Sign In </h4>
+        <div class="has-error signin-error">
+        	<h5></h5>
+        </div> 
       </div>
       <div class="modal-body">
         <form>
@@ -30,7 +33,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="signin()">Sign In</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
       </div>
     </div>
 
@@ -41,9 +44,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" ng-click="closeModal()">&times;</button>
         <h4 class="modal-title">Register </h4>
-        <div class="has-error register_error">
+        <div class="has-error register-error">
         	<h5></h5>
         </div> 
       </div>
@@ -62,7 +65,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="register()">Register</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
       </div>
     </div>
 
@@ -72,48 +75,6 @@
 
 <div>
 	<div class="row">
-		<div class="purpose col-md-7">
-			<h3>Add up to six street cleaning times, and receive text message reminders 12 hours before street cleaning starts. Never get a ticket again!</h3>
-
-			<div class="no_reminders">
-				...you do not seem to have any reminders.
-			</div>
-			<div class="not_logged_in">
-				Login or Register to get started.
-			</div>
-			<div class="show_reminders">
-				<h1>Your reminders: </h1>
-				<div ng-repeat="reminder in reminders" class="list-group-item list-group-item-warning">
-					<div class="row reminder-info">
-						<div class="col-md-7">
-							<br>
-							<h5>Day: </h5>{{reminder.day.toUpperCase()}}
-							<br>
-							<h5>Start Time: </h5>{{reminder.hour}}:00 (Military Time)
-							<br>
-							<h5> Monthly Frequency: </h5>{{reminder.frequency.toUpperCase()}}
-							<br>
-							<h5>Duration: </h5>{{reminder.duration}} hrs 
-						</div>
-						<div class="col-md-5">
-							<div class="reminder-name">
-							{{reminder.reminder_name.toUpperCase()}}
-							</div>
-							<br>
-							<br>			
-						</div>
-						<div class="delete-button">
-								<button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button>
-						</div>
-					</div>
-				<!-- 	<div class="reminder-right">
-						
-					</div> -->
-					
-				</div>
-			</div>
-		</div>
-		<div class="col-md-1"></div>
 		<div class="col-md-4">
 			<h1>Create your reminder times</h1>
 			<div>
@@ -160,6 +121,44 @@
 						<br>
 				    </form>
 		   			<button class="btn btn-success" type="button" ng-click="create_reminder()">Make Reminder</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+		<div class="purpose col-md-7">
+			<h3>Add up to six street cleaning times, and receive text message reminders 12 hours before street cleaning starts. Never get a ticket again!</h3>
+
+			<div class="no_reminders logged-in">
+				...you do not seem to have any reminders.
+			</div>
+			<div class="not-logged-in">
+				Login or Register to get started.
+			</div>
+			<div class="show_reminders">
+				<h1>Your reminders: </h1>
+				<div ng-repeat="reminder in reminders" class="list-group-item list-group-item-warning">
+					<div class="row reminder-info">
+						<div class="col-md-7">
+							<br>
+							<h5>Day: </h5>{{reminder.day.toUpperCase()}}
+							<br>
+							<h5>Start Time: </h5>{{reminder.hour}}:00 (Military Time)
+							<br>
+							<h5> Monthly Frequency: </h5>{{reminder.frequency.toUpperCase()}}
+							<br>
+							<h5>Duration: </h5>{{reminder.duration}} hrs 
+						</div>
+						<div class="col-md-5">
+							<div class="reminder-name">
+							{{reminder.reminder_name.toUpperCase()}}
+							</div>
+							<br>
+							<br>			
+						</div>
+						<div class="delete-button">
+								<button type="button" class="btn btn-default" ng-click="delete_reminder(reminder.id)">Delete</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
