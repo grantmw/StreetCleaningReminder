@@ -44,11 +44,11 @@ app.controller("RemindersController", ["$scope", "$http", "$cookies", function($
 			if($scope.reminders.length == 0){
 				$(".show_reminders").hide();
 				if ($cookies.get("loggedin") == "true"){
-					$(".no_reminders").show();
+					$(".no-reminders").show();
 				}
 			} else {
 				$(".show_reminders").show();
-				$(".no_reminders").hide();
+				$(".no-reminders").hide();
 			}
 			$scope.phoneNumber = $cookies.get("userPhoneNumber");
 		})

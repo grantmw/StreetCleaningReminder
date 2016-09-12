@@ -37,5 +37,4 @@ class RemindersController < ApplicationController
 			render nothing: true, status: 404	
 		end
 	end
-
 end

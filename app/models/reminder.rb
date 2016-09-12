@@ -2,9 +2,7 @@ class Reminder < ActiveRecord::Base
 
 	belongs_to :user
 	after_create :schedule_reminder
-  
 	validate :reminders_within_limit, :on => :create
-
 	validates :user_id, presence: true
 	validates :hour, presence: true
 	validates :duration, presence: true
@@ -12,50 +10,34 @@ class Reminder < ActiveRecord::Base
 	validates :frequency, presence: true
 	validates :complete_time, presence: true, :uniqueness => {message: "Failed. No Duplicates."}
 
-
 	def reminders_within_limit
-
 		if self.user.reminders.length > 5
 			errors.add(:over_limit, "Sorry, you can only make 6 reminders.") 
 		end
-
 	end
 
 	def send_message
-
 		account_sid = ENV["account_sid"]
 		auth_token = ENV["auth_token"]
 		@client = Twilio::REST::Client.new(account_sid, auth_token)
-
 		@message = @client.account.messages.create(
 		  to: "+1" + self.user.phone_number,
 		  from: "+12404910241",
 		  body: "STREET CLEANING ALERT\n Reminder Name: #{self.reminder_name}\n Street cleaning will start in 12 hours!"
 		)
-		#+12404910241
-		#15005550006
-		# Delayed::Job.find_by(reminder_id: this.id).delete
 		schedule_reminder
-
 	end
 
 	def schedule_reminder
-
 		time_object = Reminder.create_runtime(self.hour, self.day, self.frequency)
 		datetime_object = DateTime.parse(time_object.to_s)
-		p "******" * 100
-		p time_object
-		p datetime_object
-		# Rails.env.production?  
 		test_object = DateTime.now + Rational(3,1440)
-		p "******" * 100
 		# self.delay(run_at: datetime_object, reminder_id: self.id).send_message
 		self.delay(run_at: test_object, reminder_id: self.id).send_message
 
 	end
 
 	def self.create_runtime(hour, day, frequency)
-
 		run_time = nil
 		month = ""
 		case DateTime.now.month
@@ -104,7 +86,6 @@ class Reminder < ActiveRecord::Base
 		if frequency == 'weekly'
 			run_time = Chronic.parse("next #{day}") - (12*60*60) + (hour*60*60)
 		elsif frequency == '1st and 3rd' || frequency == '2nd and 4th'
-
 			if Time.now <= Chronic.parse("1st #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				if frequency == '1st and 3rd'
 					run_time = Chronic.parse("1st #{day} this #{month}") - (12*60*60) + (hour*60*60)
@@ -117,7 +98,6 @@ class Reminder < ActiveRecord::Base
 				else
 					run_time = Chronic.parse("2nd #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				end
-			#before 3rd wday of month
 			elsif Time.now <= Chronic.parse("3rd #{day} this #{month}") - (12*60*60) + (hour*60*60)
 				if frequency == '1st and 3rd'
 					run_time = Chronic.parse("3rd #{day} this #{month}") - (12*60*60) + (hour*60*60)
@@ -138,9 +118,7 @@ class Reminder < ActiveRecord::Base
 				end
 			end
 		end
-
 		run_time - (12*60*60)
 	end
-
 end
 

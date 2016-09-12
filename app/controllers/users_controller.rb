@@ -5,9 +5,7 @@ class UsersController < ApplicationController
     if user.save
       render json: user.phone_number, status: :created
     else
-      p user.errors
       render json: user.errors.full_messages, status: 406
     end
   end
-
 end

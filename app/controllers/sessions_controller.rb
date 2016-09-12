@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
 
 	def create
-
 		if user = User.find_by(phone_number: params["phone_number"])
 			if user.password == params[:password]
 				obj = {
@@ -17,5 +16,4 @@ class SessionsController < ApplicationController
 			render nothing: true, status: 404	
 		end
 	end
-
 end
