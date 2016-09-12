@@ -32,9 +32,8 @@ class Reminder < ActiveRecord::Base
 		time_object = Reminder.create_runtime(self.hour, self.day, self.frequency)
 		datetime_object = DateTime.parse(time_object.to_s)
 		test_object = DateTime.now + Rational(3,1440)
-		# self.delay(run_at: datetime_object, reminder_id: self.id).send_message
-		self.delay(run_at: test_object, reminder_id: self.id).send_message
-
+		self.delay(run_at: datetime_object, reminder_id: self.id).send_message
+		#self.delay(run_at: test_object, reminder_id: self.id).send_message
 	end
 
 	def self.create_runtime(hour, day, frequency)
