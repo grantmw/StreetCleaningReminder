@@ -37,7 +37,7 @@ class Reminder < ActiveRecord::Base
 	def self.create_runtime(hour, day, frequency)
 		run_time = nil
 		month = ""
-		case DateTime.now.month
+		case (DateTime.now + 1*(0.5)).month
 			when 1
 				month = 'january'
 			when 2
@@ -63,55 +63,57 @@ class Reminder < ActiveRecord::Base
 			when 12
 				month = 'december'
 		end
-		wday = ""
-		case DateTime.now.wday
-			when 0
-				wday = 'sunday'
-			when 1
-				wday = 'monday'
-			when 2
-				wday = 'tuesday'
-			when 3
-				wday = 'wednesday'
-			when 4
-				wday = 'thursday'
-			when 5
-				wday = 'friday'
-			when 6
-				wday = 'saturday'
-		end
+		# wday = ""
+		# case DateTime.now.wday
+		# 	when 0
+		# 		wday = 'sunday'
+		# 	when 1
+		# 		wday = 'monday'
+		# 	when 2
+		# 		wday = 'tuesday'
+		# 	when 3
+		# 		wday = 'wednesday'
+		# 	when 4
+		# 		wday = 'thursday'
+		# 	when 5
+		# 		wday = 'friday'
+		# 	when 6
+		# 		wday = 'saturday'
+		# end
+		twelve_hours = (12*60*60)
+		time_of_day = (hour*60*60)
 		if frequency == 'weekly'
-			run_time = Chronic.parse("next #{day}") - (12*60*60) + (hour*60*60)
+			run_time = Chronic.parse("next #{day}") - twelve_hours + time_of_day
 		elsif frequency == '1st and 3rd' || frequency == '2nd and 4th'
-			if Time.now <= Chronic.parse("1st #{day} this #{month}") - (12*60*60) + (hour*60*60)
+			if Time.now + twelve_hours <= Chronic.parse("1st #{day} this #{month}") - twelve_hours + time_of_day
 				if frequency == '1st and 3rd'
-					run_time = Chronic.parse("1st #{day} this #{month}") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("1st #{day} this #{month}") - twelve_hours + time_of_day
 				else
-					run_time = Chronic.parse("2nd #{day} this #{month}") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("2nd #{day} this #{month}") - twelve_hours + time_of_day
 				end
-			elsif Time.now <= Chronic.parse("2nd #{day} this #{month}") - (12*60*60) + (hour*60*60)
+			elsif Time.now + twelve_hours <= Chronic.parse("2nd #{day} this #{month}") - twelve_hours + time_of_day
 				if frequency == '1st and 3rd'
-					run_time = Chronic.parse("3rd #{day} this #{month}") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("3rd #{day} this #{month}") - twelve_hours + time_of_day
 				else
-					run_time = Chronic.parse("2nd #{day} this #{month}") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("2nd #{day} this #{month}") - twelve_hours + time_of_day
 				end
-			elsif Time.now <= Chronic.parse("3rd #{day} this #{month}") - (12*60*60) + (hour*60*60)
+			elsif Time.now + twelve_hours <= Chronic.parse("3rd #{day} this #{month}") - twelve_hours + time_of_day
 				if frequency == '1st and 3rd'
-					run_time = Chronic.parse("3rd #{day} this #{month}") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("3rd #{day} this #{month}") - twelve_hours + time_of_day
 				else
-					run_time = Chronic.parse("4th #{day} this #{month}") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("4th #{day} this #{month}") - twelve_hours + time_of_day
 				end
-			elsif Time.now <= Chronic.parse("4th #{day} this #{month}") - (12*60*60) + (hour*60*60)
+			elsif Time.now + twelve_hours <= Chronic.parse("4th #{day} this #{month}") - twelve_hours + time_of_day
 				if frequency == '2nd and 4th'
-					run_time = Chronic.parse("4th #{day} this #{month}") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("4th #{day} this #{month}") - twelve_hours + time_of_day
 				else
-					run_time = Chronic.parse("1st #{day} next month") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("1st #{day} next month") - twelve_hours + time_of_day
 				end
 			else
 				if frequency == '2nd and 4th'
-					run_time = Chronic.parse("2nd #{day} next month") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("2nd #{day} next month") - twelve_hours + time_of_day
 				elsif frequency == '1st and 3rd'
-					run_time = Chronic.parse("1st #{day} next month") - (12*60*60) + (hour*60*60)
+					run_time = Chronic.parse("1st #{day} next month") - twelve_hours + time_of_day
 				end
 			end
 		end

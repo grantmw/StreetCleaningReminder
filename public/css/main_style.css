@@ -36,7 +36,6 @@ h5 {
 .reminder-info {
 	font-size: 12px;
 	position: relative;
- 
 }
 
 .reminder-name {
@@ -45,8 +44,10 @@ h5 {
 }
 
 .delete-button {
-	position: absolute; 
+	float: right;
+	clear: all; 
 	right: 3px;
+	bottom: 3px;
 }
 
 .name-input {
