@@ -80,10 +80,13 @@ class Reminder < ActiveRecord::Base
 		# 	when 6
 		# 		wday = 'saturday'
 		# end
+		one_week = (24*60*60*7)
 		twelve_hours = (12*60*60)
 		time_of_day = (hour*60*60)
-		if frequency == 'weekly'
+		if frequency == 'weekly' && Time.now + twelve_hours <= Chronic.parse("next #{day}") - twelve_hours + time_of_day
 			run_time = Chronic.parse("next #{day}") - twelve_hours + time_of_day
+		elsif frequency == 'weekly' && Time.now + twelve_hours > Chronic.parse("next #{day}") - twelve_hours + time_of_day
+			run_time = Chronic.parse("next #{day}") - twelve_hours + time_of_day + one_week
 		elsif frequency == '1st and 3rd' || frequency == '2nd and 4th'
 			if Time.now + twelve_hours <= Chronic.parse("1st #{day} this #{month}") - twelve_hours + time_of_day
 				if frequency == '1st and 3rd'
@@ -110,7 +113,9 @@ class Reminder < ActiveRecord::Base
 					run_time = Chronic.parse("1st #{day} next month") - twelve_hours + time_of_day
 				end
 			else
-				if frequency == '2nd and 4th'
+				if frequency == '1st and 3rd' && Time.now + twelve_hours > Chronic.parse("1st #{day} next month") - twelve_hours + time_of_day
+					run_time = Chronic.parse("3rd #{day} next month") - twelve_hours + time_of_day
+				elsif frequency == '2nd and 4th'
 					run_time = Chronic.parse("2nd #{day} next month") - twelve_hours + time_of_day
 				elsif frequency == '1st and 3rd'
 					run_time = Chronic.parse("1st #{day} next month") - twelve_hours + time_of_day
