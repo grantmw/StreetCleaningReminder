@@ -3,7 +3,7 @@
 }
 
 .welcome-message {
-	margin-top: -10%;
+	margin-top: -8%;
 }
 
 .container {
@@ -13,12 +13,22 @@
 	margin-top: 5%;
 }
 
+.unreachable {
+	opacity: 0.3;
+	pointer-events: none;
+}
+
 h5 {
 	display: inline;
 }
 
 .no-reminders, .not-logged-in, .register-error {
 	display: none;
+}
+
+.get-started {
+	font-size: 40;
+	color: #FFBD52;
 }
 
 .register-error, .signin-error {
@@ -33,7 +43,7 @@ h5 {
 
 hr {
 	height: 1px;
-	border-color: #FFAE9D;
+	border-color: #FFCBC0;
 	width: 90%;
 }
 
@@ -43,7 +53,7 @@ hr {
 
 @media (max-width: 992px) {
 	.one-col {
-		display: inline;
+		display: block;
 	}
 }
 

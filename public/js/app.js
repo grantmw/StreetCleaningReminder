@@ -25,8 +25,10 @@ app.controller("RemindersController", ["$scope", "$http", "$cookies", function($
 			$(".not-logged-in").show();
 			$(".show_reminders").hide();
 			$(".logged-in").hide();
+			$(".creation-container").addClass('unreachable')
 		}
 		else {
+			$(".creation-container").removeClass('unreachable')
 			$(".logged-in").show();
 			$(".not-logged-in").hide();
 			$(".welcome-message").html("Logged in as: " + $cookies.get("user_name"));
