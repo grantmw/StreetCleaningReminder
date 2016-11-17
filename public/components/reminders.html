@@ -117,10 +117,17 @@
 		   			<button class="btn btn-success" type="button" ng-click="create_reminder()">Make Reminder</button>
 				</div>
 			</div>
+			<hr class="one-col">
 		</div>
 		<div class="col-md-1"></div>
 		<div class="purpose col-md-7">
-			<h3>Add up to six street cleaning times, and receive text message reminders 12 hours before street cleaning starts. Never get a ticket again!</h3>
+			<h3 class="instructions">
+				<ul>
+					<li> Add up to six street cleaning times</li>
+					<li> Receive SMS reminders 12 hours before street cleaning starts</li>
+					<li> Never get a ticket again!</li>
+				</ul>
+			</h3>
 			<div class="no-reminders logged-in">
 				...you do not seem to have any reminders.
 			</div>
@@ -128,6 +135,7 @@
 				Login or Register to get started.
 			</div>
 			<div class="show_reminders">
+				<hr>
 				<h1>Your reminders: </h1>
 				<div ng-repeat="reminder in reminders" class="list-group-item list-group-item-warning">
 					<div class="row reminder-info">
