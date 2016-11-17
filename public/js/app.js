@@ -86,7 +86,7 @@ app.controller("RemindersController", ["$scope", "$http", "$cookies", function($
 			$("select").each(function() { this.selectedIndex = -1 });
 		})
 		.error(function(response){
-			if ($cookies.get("userPhoneNumber") == "not logged in"){
+			if ($cookies.get("userPhoneNumber") == "not logged in" || $cookies.get("userPhoneNumber") == null){
 				alert("Login to create a reminder");
 			} else{
 				alert(response[0]);	
