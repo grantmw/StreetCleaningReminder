@@ -20,6 +20,14 @@ app.controller("RemindersController", ["$scope", "$http", "$cookies", function($
 	$scope.userName = "";
 	$scope.reminderName = "";
 
+	window.setInterval(function(){
+		$(".get-started").animate({fontSize: '+=10%'}, 'slow')
+		$(".get-started").animate({fontSize: '-=10%'}, 'slow')
+		$(".no-reminders").animate({fontSize: '+=10%'}, 'slow');
+		$(".no-reminders").animate({fontSize: '-=10%'}, 'slow');
+	}, 40000);
+
+
 	var check_login = function(){	
 		if ($cookies.get("loggedin") == "false" || typeof $cookies.get("loggedin") == "undefined"){
 			$(".not-logged-in").show();
@@ -28,6 +36,7 @@ app.controller("RemindersController", ["$scope", "$http", "$cookies", function($
 			$(".creation-container").addClass('unreachable')
 		}
 		else {
+			$(".instructions li").css('font-size', '20px')
 			$(".creation-container").removeClass('unreachable')
 			$(".logged-in").show();
 			$(".not-logged-in").hide();
@@ -131,7 +140,7 @@ app.controller("RemindersController", ["$scope", "$http", "$cookies", function($
 		};
 
 		$http.post("/users", user).success(function(response){
-			window.location.reload();
+			$("#signinAlert").modal("show");
 		})
 		.error(function(response){
 			$(".register-error h5").html(response[0]);
@@ -143,6 +152,10 @@ app.controller("RemindersController", ["$scope", "$http", "$cookies", function($
 	$scope.closeModal = function(){
 		$(".modal").hide();
 		window.location.reload();
+	}
+
+	$scope.hideModal = function(){
+		$(".modal").hide();
 	}
 
 	$scope.log_out = function(){

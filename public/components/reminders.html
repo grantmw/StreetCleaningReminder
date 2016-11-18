@@ -67,6 +67,22 @@
     </div>
   </div>
 </div>
+<!-- Sign Alert Modal --> 
+<div id="signinAlert" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+      	Welcome! Sign in and start creating your reminders.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary not-logged-in" data-toggle="modal" data-target="#myModal" ng-click="hideModal()">Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Home -->
 <div>
 	<div class="row">
@@ -125,9 +141,9 @@
 			<div class="instructions">
 				<h3>
 					<ul>
-						<li>Create up to six street cleaning times</li>
+						<li>Attach up to six street cleaning times to profile</li>
 						<li>Receive SMS reminders 12 hours before street cleaning starts</li>
-						<li>Reminders are automaticall rescheduled</li>
+						<li>Reminders are automatically rescheduled</li>
 						<li>Never get a ticket again!</li>
 					</ul>
 				</h3>
