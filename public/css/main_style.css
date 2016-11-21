@@ -10,7 +10,11 @@
 }
 
 .title hr {
-	opacity: 1.9;
+	opacity: 0.5;
+	border-color: #91bbff;
+	width: 85%;
+	margin-top: 0px;
+	margin-bottom: 10px;
 }
 
 .city {
@@ -19,7 +23,7 @@
 }
 
 .welcome-message {
-	margin-top: -4%;
+	margin-top: -3%;
 	font-size: 12px;
 	float: right;
 }
@@ -29,6 +33,7 @@
 	padding: 4%;
 	border-radius: 10px;
 	margin-top: 3%;
+	padding-top: 3%;
 }
 
 .unreachable {
@@ -76,6 +81,10 @@ h5 {
 @media (max-width: 992px) {
 	.one-col {
 		display: block;
+	}
+
+	.title {
+		font-size: 30px;
 	}
 }
 
