@@ -1,7 +1,9 @@
+<div class="welcome-message logged-in"></div>
 <div class="row">
 	<div class="title">
 		<span class="city"> San Francisco </span><BR>
 		STREET CLEANING REMINDERS
+		<hr>
 	</div>
 </div>
 <div class="header row">
@@ -10,8 +12,7 @@
 		<button type="button" class="btn btn-info not-logged-in" data-toggle="modal" data-target="#myRegisterModal">Register</button>
 		<button type="button" class="btn btn-danger logged-in" data-toggle="modal" ng-click="log_out()">Log Out</button>
 	</div>
-	<div class="col-xs-5"></div>
-	<div class="welcome-message col-xs-2 logged-in"></div>
+	<div class="col-xs-7"></div>
 </div>
 <!-- SignIn Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -39,7 +40,6 @@
         <button type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
       </div>
     </div>
-
   </div>
 </div>
 <!-- Register Modal -->
@@ -90,7 +90,7 @@
   </div>
 </div>
 <!-- Home -->
-<div>
+<div class="main">
 	<div class="row">
 		<div class="col-md-4 creation-container">
 			<h1>Create your reminder times</h1>

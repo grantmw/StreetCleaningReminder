@@ -9,20 +9,26 @@
 	letter-spacing: -2px;
 }
 
+.title hr {
+	opacity: 1.9;
+}
+
 .city {
 	font-size: 25px;
 	text-decoration: underline;
 }
 
 .welcome-message {
-	margin-top: -8%;
+	margin-top: -4%;
+	font-size: 12px;
+	float: right;
 }
 
 .container {
 	background-color: #f3f6f7;
-	padding: 8%;
+	padding: 4%;
 	border-radius: 10px;
-	margin-top: 5%;
+	margin-top: 3%;
 }
 
 .unreachable {
@@ -57,7 +63,7 @@ h5 {
     }
 }
 
-hr {
+.main hr {
 	height: 1px;
 	border-color: #FFCBC0;
 	width: 90%;
