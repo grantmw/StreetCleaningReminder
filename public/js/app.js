@@ -146,7 +146,7 @@ app.controller("RemindersController", ["$scope", "$http", "$cookies", function($
 		.error(function(response){
 			$(".register-error h5").html(response[0]);
 			$(".register-error").show();
-			$("#myRegisterModal").modal("toggle");
+			$("#myRegisterModal").modal("show");
 		});
 	}
 
