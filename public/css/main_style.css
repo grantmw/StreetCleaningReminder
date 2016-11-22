@@ -2,18 +2,24 @@
 	font-family: 'Montserrat';
 }
 
-.title {
-	color: #f44259;
+.title-container {
 	text-align: center;
-	font-size: 35px;
-	letter-spacing: -2px;
 }
 
-.title hr {
+.title {
+	color: #f44259;
+	font-size: 35px;
+	letter-spacing: -2px;
+	display: inline-block;
+	text-align: left;
+	line-height: 30px;
+}
+
+.title-container hr {
 	opacity: 0.5;
 	border-color: #91bbff;
 	width: 85%;
-	margin-top: 0px;
+	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
@@ -90,6 +96,11 @@ h5 {
 
 .instructions {
 	font-size: 20px;
+}
+
+.instructions-header {
+	font-size: 25px;
+	text-decoration: underline;
 }
 
 .reminder-info {

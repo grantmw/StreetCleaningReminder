@@ -34,9 +34,10 @@ app.controller("RemindersController", ["$scope", "$http", "$cookies", function($
 			$(".show_reminders").hide();
 			$(".logged-in").hide();
 			$(".creation-container").addClass('unreachable')
+			$(".instructions li").css('font-size', '20px')
 		}
 		else {
-			$(".instructions li").css('font-size', '20px')
+			$(".instructions li").css('font-size', '16px')
 			$(".creation-container").removeClass('unreachable')
 			$(".logged-in").show();
 			$(".not-logged-in").hide();
